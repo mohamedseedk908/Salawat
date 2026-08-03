@@ -4,6 +4,7 @@ import android.media.AudioManager
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,38 +24,38 @@ import com.ms.salawat.screen.loadAzkarAll
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
     fun ScreenAlSabah() {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text("أذكار الصباح")
-                }
-            )
-        }
-    ) { paddingValues ->
-        val context = LocalContext.current
-        val audioManager = remember { context.getSystemService(Context.AUDIO_SERVICE) as AudioManager }
-        val allAzkar = remember { loadAzkarAll(context) }
-        val sabahList = remember(allAzkar) {
-            allAzkar.filter { it.category == "أذكار الصباح" }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues) // مهم
-                .background(Color(0xffEDFBFF))
+    val context = LocalContext.current
+    val audioManager = remember { context.getSystemService(Context.AUDIO_SERVICE) as AudioManager }
+    val allAzkar = remember { loadAzkarAll(context) }
+    val sabahList = remember(allAzkar) {
+        allAzkar.filter { it.category == "أذكار الصباح" }
+    }
+
+    // 🟢 بدل الـ Scaffold بنستخدم Column عادي ممسوك من الشاشة بدون طبقات زائدة
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xffEDFBFF))
+    ) {
+        // الـ TopAppBar ينزل في أعلى القائمة عادي
+        CenterAlignedTopAppBar(
+            title = {
+                Text("أذكار الصباح")
+            }
+        )
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
         ) {
-            LazyColumn {
-                items(sabahList) { azkar ->
-                    AxkarItemAlSabah(
-                        azkarAll = azkar,
-                        onAction = { handleUserFeedback(context, audioManager) })
-                }
+            items(sabahList) { azkar ->
+                AxkarItemAlSabah(
+                    azkarAll = azkar,
+                    onAction = { handleUserFeedback(context, audioManager) }
+                )
             }
         }
     }
 }
-
 
 
 

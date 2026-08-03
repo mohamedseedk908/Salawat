@@ -16,19 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ms.salawat.screen.MainScreenContent.MyImage
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    // 🟢 لمعرفة الشاشة الحالية
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    // قائمة الشاشات التي تريد ظهور الـ BottomBar فيها فقط
-    val bottomBarScreens = listOf("home", "PrayerTimes", "SettingsScreen")
-    // إظهاره فقط إذا كانت الشاشة الحالية من القائمة
-    if (currentRoute in bottomBarScreens) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -46,7 +42,13 @@ fun BottomNavigationBar(navController: NavHostController) {
                 imageResourceId = com.ms.salawat.R.drawable.settings,
                 onClick = {
                     if (currentRoute != "SettingsScreen") {
-                        navController.navigate("SettingsScreen")
+                        navController.navigate("SettingsScreen"){
+                            popUpTo(navController.graph.findStartDestination().id){
+                                saveState=true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 })
             Spacer(Modifier.width(12.dp))
@@ -54,7 +56,13 @@ fun BottomNavigationBar(navController: NavHostController) {
                 imageResourceId = com.ms.salawat.R.drawable.vector10,
                 onClick = {
                     if (currentRoute != "PrayerTimes") {
-                        navController.navigate("PrayerTimes")
+                        navController.navigate("PrayerTimes"){
+                            popUpTo(navController.graph.findStartDestination().id){
+                                saveState=true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 })
             Spacer(Modifier.width(12.dp))
@@ -62,10 +70,15 @@ fun BottomNavigationBar(navController: NavHostController) {
                 imageResourceId = com.ms.salawat.R.drawable.home,
                 onClick = {
                     if (currentRoute != "HomeScreen") {
-                        navController.navigate("HomeScreen")
+                        navController.navigate("HomeScreen"){
+                            popUpTo(navController.graph.findStartDestination().id){
+                                saveState=true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 }
             )
         }
     }
-}

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,8 +52,12 @@ fun MainScreenContent(
             .padding(16.dp)
     ) {
         PlayerTimes2()
-
-        Card {
+        Card (
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(180.dp)
+        ){
             Row(
                 modifier = Modifier
                     .background(color = Color(0xFF80C0DC))
@@ -59,8 +65,12 @@ fun MainScreenContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
-                    modifier = Modifier.weight(0.40f),
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .weight(0.40f)
+                        .fillMaxHeight()
+                        .padding(start = 16.dp, top = 12.dp, bottom = 12.dp),
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Text(text = "الظهر ", style = TextStyle(fontSize = 25.sp))
                     Text(text = "11:45", style = TextStyle(fontSize = 25.sp))
@@ -74,7 +84,7 @@ fun MainScreenContent(
                         .weight(0.60f)
                         .fillMaxWidth()
                         .height(200.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.FillBounds
                 )
             }
         }
@@ -93,7 +103,7 @@ fun MainScreenContent(
         Card() {
         Column(
             modifier = Modifier
-                .background(color = Color(0xFFD5E6F3))
+                .background(color = Color(0xFFAAD9EE))
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
@@ -107,17 +117,14 @@ fun MainScreenContent(
             ) {
                 MyImage(
                     imageResourceId = R.drawable.vector1,
-                    description = "",
                     text = "اذكار الصلاة ",
                     onClick = { navController.navigate("ScreenPrayer") })
                 MyImage(
                     imageResourceId = R.drawable.vector2,
-                    description = "",
                     text = "اذكار الصباح",
                     onClick = { navController.navigate("ScreenAlSabah") })
                 MyImage(
                     imageResourceId = R.drawable.vector3,
-                    description = "",
                     text = "اذكار المساء",
                     onClick = { navController.navigate("ScreenAlMassa") })
             }
@@ -128,17 +135,14 @@ fun MainScreenContent(
             ) {
                 MyImage(
                     imageResourceId = R.drawable.vector4,
-                    description = "",
                     text = "التقويم",
                     onClick = {})
                 MyImage(
                     imageResourceId = R.drawable.vector5,
-                    description = "",
                     text = "التسبيح",
                     onClick = { navController.navigate("AltasbihScreen") })
                 MyImage(
                     imageResourceId = R.drawable.vector6,
-                    description = "",
                     text = "الادعية",
                     onClick = { navController.navigate("AliadieiaScreen") })
             }
@@ -153,17 +157,17 @@ fun MainScreenContent(
                     imageResourceId = R.drawable.vector7,
                     description = "",
                     text = "اذكار متنوعة",
-                    onClick = {})
+                    onClick = { navController.navigate("AzkarCategoriesScreen") })
                 MyImage(
                     imageResourceId = R.drawable.vector8,
                     description = "",
                     text = "اقرب مسجد",
-                    onClick = {})
+                    onClick = { navController.navigate("") })
                 MyImage(
                     imageResourceId = R.drawable.vector9,
                     description = "",
                     text = "المفضلة ",
-                    onClick = {})
+                    onClick = { navController.navigate("") })
             }
         }
     }

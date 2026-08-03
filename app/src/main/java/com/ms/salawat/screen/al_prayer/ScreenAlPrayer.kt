@@ -3,6 +3,7 @@ import android.content.Context
 import android.media.AudioManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,31 +29,29 @@ import com.ms.salawat.screen.handleUserFeedback
     val audioManager = remember { context.getSystemService(Context.AUDIO_SERVICE) as AudioManager }
     val uiState =  (vm.loadAzkarPrayer(context =context ))
     val azkarList = uiState.map { AzkarAll(category = "", count = it.repeat.toString(), description = it.bless, reference = "", dhikr = it.zekr) }
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text("أذكار الصلاة")
-                }
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues) // مهم
-                .background(Color(0xffEDFBFF))
-        ) {
-            LazyColumn {
-                items(azkarList) { azkar ->
-                    AxkarItemAlSabah(
-                        azkarAll = azkar,
-                        onAction = {
-                            handleUserFeedback(context, audioManager)
-                        }
-                    )
-                }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xffEDFBFF))
+    ) {
+        // الـ TopAppBar ينزل في أعلى القائمة عادي
+        CenterAlignedTopAppBar(
+            title = {
+                Text("أذكار بعد الصلاة")
+            }
+        )
+
+        LazyColumn (modifier = Modifier.fillMaxSize()){
+            items(azkarList) { azkar ->
+                AxkarItemAlSabah(
+                    azkarAll = azkar,
+                    onAction = {
+                        handleUserFeedback(context, audioManager)
+                    }
+                )
             }
         }
     }
-}
+    }
+
