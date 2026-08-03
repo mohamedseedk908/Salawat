@@ -1,0 +1,29 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# ----------------------------------------------------
+# Security & Release Signing (مهم جداً لحماية التطبيق)
+# ----------------------------------------------------
+# ملفات مفاتيح التوقيع والـ Keystore
+*.jks
+*.keystore
+*.pepk
+
+# مجلدات المخرجات النهائية للـ APK و Release Bundles
+**/build/outputs/apk/
+**/build/outputs/bundle/
+
+# ملفات المفاتيح الخاصة بالـ Google Services أو API Keys لو أضفتها مستقبلاً
+google-services.json

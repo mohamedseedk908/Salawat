@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- الثيم الأساسي -->
+    <style name="Theme.Salawat" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- ثيم الـ Splash Screen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- 🟢 استخدمنا ic_launcher التابعة لـ mipmap بدل drawable -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher</item>
+        <item name="windowSplashScreenBackground">@color/teal_700</item>
+        <item name="postSplashScreenTheme">@style/Theme.Salawat</item>
+    </style>
+</resources>
